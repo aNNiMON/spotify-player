@@ -220,6 +220,23 @@ pub fn handle_action_in_context(
                 }
                 ui.popup = None;
             }
+            Action::JumpToTrack => {
+                if let PageState::Context {
+                    id: Some(context_id),
+                    ..
+                } = ui.current_page()
+                {
+                    if let Some(Context::Tracks { tracks, .. }) =
+                        data.caches.context.get(&context_id.uri())
+                    {
+                        let track_id = track.id.id();
+                        if let Some(i) = tracks.iter().position(|t| t.id.id() == track_id) {
+                            ui.current_page_mut().select(i);
+                        }
+                    }
+                }
+                ui.popup = None;
+            }
             _ => {}
         },
         ActionContext::Album(album) => match action {

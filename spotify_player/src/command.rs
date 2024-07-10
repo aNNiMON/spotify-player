@@ -96,6 +96,7 @@ pub enum Action {
     CopyLink,
     Follow,
     Unfollow,
+    JumpToTrack,
 }
 
 #[derive(Debug)]
@@ -157,6 +158,7 @@ pub fn construct_track_actions(track: &Track, data: &DataReadGuard) -> Vec<Actio
         Action::CopyLink,
         Action::AddToPlaylist,
         Action::AddToQueue,
+        Action::JumpToTrack,
     ];
 
     if data.user_data.is_liked_track(track) {
